@@ -95,27 +95,52 @@ comm encrypt/
 
 ---
 
-## 4. Quick Start Guide
+## 4. Empirical Benchmarks & Fault Detection Results
+
+### Performance Comparison (Baseline vs. ASCON vs. Full SecureFlex)
+![Performance Benchmark](experiments/results/performance_comparison.png)
+
+### Security Fault Injection Detection Breakdown (100% Detection Target)
+![Fault Detection Summary](experiments/results/fault_detection_summary.png)
+
+---
+
+## 5. Quick Start Guide
 
 ### Step 1: Provision Symmetric Key
 ```bash
 python config/key_generator.py -o config/secret.key
 ```
-Copy `config/secret.key` to Raspberry Pi 5 (`~/SecureFlex-MAVLink/config/secret.key`) via SCP and run `chmod 600 config/secret.key`.
+Copy `config/secret.key` to Raspberry Pi 5 (`~/SecureFlex-MAVLink/config/secret.key`) via SCP:
+```bash
+scp config/secret.key pi@10.41.237.148:~/SecureFlex-MAVLink/config/secret.key
+```
+On the Pi 5, restrict permissions:
+```bash
+chmod 600 ~/SecureFlex-MAVLink/config/secret.key
+```
 
-### Step 2: Start Secure Receiver on Raspberry Pi 5
+### Step 2: Automated Environment Setup on Raspberry Pi 5
+Run the provided automated provisioning script:
+```bash
+chmod +x raspberry_pi/setup_pi.sh
+./raspberry_pi/setup_pi.sh
+```
+*(Creates Python venv, installs requirements, sets up UFW firewall for UDP 14550, and enables the systemd service).*
+
+### Step 3: Start Secure Receiver on Raspberry Pi 5
 ```bash
 python raspberry_pi/secure_receiver.py --bind-ip 0.0.0.0 --port 14550 --key-file config/secret.key
 ```
 
-### Step 3: Start Secure Transmitter on Windows Laptop
+### Step 4: Start Secure Transmitter on Windows Laptop
 ```powershell
 python windows/secure_transmitter.py --target-ip 10.41.237.148 --port 14550 --key-file config/secret.key --rate 1.0
 ```
 
-### Step 4: Run Automated Tests & Fault Campaign
+### Step 5: Run Automated Tests & Fault Campaign
 ```powershell
-# Run full test suite
+# Run full test suite (54 unit and integration tests)
 pytest tests
 
 # Run security fault campaign (S-box parity, replay, network tampering)
@@ -123,5 +148,20 @@ python experiments/run_fault_campaign.py
 
 # Run cryptographic performance benchmark
 python experiments/run_performance.py
+
+# Run 3-way comparative benchmark
+python experiments/benchmark_comparison.py
+```
+
+---
+
+## 6. Comprehensive Technical Plan Guide (PDF)
+
+The full 7-page technical specification and operator runbook is compiled in:
+- **[`SecureFlex_MAVLink_Plan_Guide.pdf`](SecureFlex_MAVLink_Plan_Guide.pdf)**
+
+To recompile or regenerate the PDF with updated metrics at any time:
+```powershell
+python generate_plan_guide_pdf.py
 ```
 
