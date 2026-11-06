@@ -1,0 +1,5 @@
+# Windows Laptop Requirements for SecureFlex-MAVLink
+pymavlink>=2.4.40
+pytest>=8.0.0
+reportlab>=4.0.0
+

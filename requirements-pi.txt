@@ -1,0 +1,4 @@
+# Raspberry Pi 5 Requirements for SecureFlex-MAVLink
+pymavlink>=2.4.40
+pytest>=8.0.0
+

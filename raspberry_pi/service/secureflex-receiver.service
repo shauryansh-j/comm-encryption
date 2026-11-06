@@ -1,0 +1,23 @@
+[Unit]
+Description=SecureFlex-MAVLink Secure Receiver Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/SecureFlex-MAVLink
+ExecStart=/home/pi/SecureFlex-MAVLink/.venv/bin/python raspberry_pi/secure_receiver.py --bind-ip 0.0.0.0 --port 14550 --key-file config/secret.key
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+# Hardening measures
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/home/pi/SecureFlex-MAVLink/logs
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
+

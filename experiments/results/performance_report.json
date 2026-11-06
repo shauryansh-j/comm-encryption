@@ -1,0 +1,25 @@
+{
+  "benchmark_iterations": 1000,
+  "payload_size_bytes": 21,
+  "datagram_size_bytes": 76,
+  "framing_overhead_bytes": 55,
+  "overhead_percent": 261.9047619047619,
+  "encryption_latency_us": {
+    "mean": 360.41,
+    "median": 315.4,
+    "p95": 603.63,
+    "min": 278.0,
+    "max": 1558.5
+  },
+  "decryption_verification_latency_us": {
+    "mean": 732.44,
+    "median": 644.6,
+    "p95": 1216.86,
+    "min": 564.6,
+    "max": 2217.8
+  },
+  "total_cryptographic_pipeline_us": {
+    "mean": 1096.91,
+    "throughput_messages_per_second": 911.7
+  }
+}

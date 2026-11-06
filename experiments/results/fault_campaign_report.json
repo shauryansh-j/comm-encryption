@@ -1,0 +1,65 @@
+{
+  "sbox_parity": {
+    "campaign": "S-Box Parity Prediction Single-Bit Campaign",
+    "total_faults_injected": 320,
+    "detected_faults": 320,
+    "detection_rate_pct": 100.0,
+    "expected_detection_rate_pct": 100.0
+  },
+  "linear_invariant": {
+    "campaign": "Linear Layer Word-Parity Invariant Single-Bit Campaign",
+    "total_faults_injected": 320,
+    "detected_faults": 320,
+    "detection_rate_pct": 100.0,
+    "expected_detection_rate_pct": 100.0
+  },
+  "network_faults": {
+    "campaign": "Network Transport Security Validation",
+    "all_passed": true,
+    "total_test_cases": 7,
+    "passed_cases": 7,
+    "cases": [
+      {
+        "name": "Valid Packet",
+        "passed": true,
+        "stage": "STAGE_6_ASCON_AEAD128_AUTH"
+      },
+      {
+        "name": "Replay Duplicate Counter",
+        "passed": true,
+        "stage": "STAGE_5_REPLAY_PRE_CHECK",
+        "category": "REPLAY_ATTACK"
+      },
+      {
+        "name": "Ciphertext Bit Flip",
+        "passed": true,
+        "stage": "STAGE_6_ASCON_AEAD128_AUTH",
+        "category": "AUTHENTICATION_FAILED"
+      },
+      {
+        "name": "Tag Bit Flip",
+        "passed": true,
+        "stage": "STAGE_6_ASCON_AEAD128_AUTH",
+        "category": "AUTHENTICATION_FAILED"
+      },
+      {
+        "name": "Truncated Datagram",
+        "passed": true,
+        "stage": "STAGE_2_HEADER_FRAMING",
+        "category": "INVALID_FRAMING"
+      },
+      {
+        "name": "Unsupported Version",
+        "passed": true,
+        "stage": "STAGE_3_VERSION_CHECK",
+        "category": "UNSUPPORTED_VERSION"
+      },
+      {
+        "name": "Invalid Magic Framing",
+        "passed": true,
+        "stage": "STAGE_2_HEADER_FRAMING",
+        "category": "INVALID_FRAMING"
+      }
+    ]
+  }
+}

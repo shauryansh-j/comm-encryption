@@ -1,0 +1,27 @@
+{
+  "iterations": 1000,
+  "payload_bytes": 21,
+  "plain_mavlink": {
+    "tx_latency_us": 9.48,
+    "rx_latency_us": 17.13,
+    "total_latency_us": 26.61,
+    "datagram_bytes": 21,
+    "overhead_bytes": 0
+  },
+  "ascon_only": {
+    "tx_latency_us": 280.53,
+    "rx_latency_us": 566.08,
+    "total_latency_us": 846.61,
+    "datagram_bytes": 37,
+    "overhead_bytes": 16
+  },
+  "secureflex_full": {
+    "tx_latency_us": 570.49,
+    "rx_latency_us": 1169.31,
+    "total_latency_us": 1739.8,
+    "datagram_bytes": 76,
+    "overhead_bytes": 55,
+    "p95_tx_us": 1064.23,
+    "p95_rx_us": 2433.07
+  }
+}

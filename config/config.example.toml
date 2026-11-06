@@ -1,0 +1,26 @@
+# SecureFlex-MAVLink Configuration Example File
+# Copy to config.toml and configure your IP and keys
+
+[network]
+target_ip = "10.41.237.148"
+target_port = 14550
+bind_ip = "0.0.0.0"
+bind_port = 14550
+
+[security]
+key_file = "config/secret.key"
+sender_id = 1
+replay_window_size = 64
+strict_monotonic = false
+
+[mavlink]
+source_system = 255
+source_component = 190
+heartbeat_rate_hz = 1.0
+
+[fdir]
+heartbeat_timeout_sec = 3.5
+recovery_timeout_sec = 2.0
+max_persistent_faults = 5
+fault_log_path = "logs/fault_events.jsonl"
+

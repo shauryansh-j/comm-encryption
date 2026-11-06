@@ -1,0 +1,39 @@
+# SecureFlex-MAVLink Configuration File
+# Conforms to NIST SP 800-232 Ascon-AEAD128 Security Specification
+
+[network]
+# Target Raspberry Pi 5 IP address
+target_ip = "10.41.237.148"
+# UDP Port for MAVLink telemetry
+target_port = 14550
+# Local bind address for receiver
+bind_ip = "0.0.0.0"
+bind_port = 14550
+
+[security]
+# Path to 16-byte key file (or 32-character hex string)
+key_file = "config/secret.key"
+# Expected sender ID (1 = GCS, 2 = UAV Companion Computer)
+sender_id = 1
+# Replay protection sliding window size (packets)
+replay_window_size = 64
+# Enforce strict monotonic counter check (true = no out-of-order packets allowed)
+strict_monotonic = false
+
+[mavlink]
+# MAVLink System ID and Component ID for GCS transmitter
+source_system = 255
+source_component = 190
+# Heartbeat transmission rate in Hz
+heartbeat_rate_hz = 1.0
+
+[fdir]
+# Heartbeat loss timeout in seconds before triggering SUSPECT/HALT
+heartbeat_timeout_sec = 3.5
+# Recovery state timeout in seconds
+recovery_timeout_sec = 2.0
+# Consecutive fault threshold before entering permanent LOCK
+max_persistent_faults = 5
+# Log file path for structured fault records
+fault_log_path = "logs/fault_events.jsonl"
+

@@ -1,0 +1,28 @@
+# Python virtual environments & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Sensitive cryptographic keys
+config/*.key
+secret.key
+*.pem
+
+# Runtime logs and captures
+logs/*.jsonl
+logs/*.log
+*.pcap
+*.pcapng
+
+# Testing & temporary
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
