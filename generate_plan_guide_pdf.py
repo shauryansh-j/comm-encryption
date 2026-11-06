@@ -1,8 +1,8 @@
 """
 PDF Generator for SecureFlex-MAVLink Implementation and Plan Guide.
 Creates an executive-grade, comprehensive, step-by-step technical guide using ReportLab.
-Includes full phase-by-phase implementation steps, operator runbook, architecture tables,
-and embedded empirical benchmark & fault detection figures.
+Includes full phase-by-phase implementation steps, operator runbook, bidirectional network architecture,
+firewall and diagnostic instructions, and embedded empirical benchmark & fault detection figures.
 """
 import os
 import sys
@@ -105,111 +105,111 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     styles.add(ParagraphStyle(
         name="DocTitle",
         fontName="Helvetica-Bold",
-        fontSize=23,
-        leading=27,
+        fontSize=22,
+        leading=26,
         textColor=colors.HexColor("#1A365D"),
         spaceAfter=5,
     ))
     styles.add(ParagraphStyle(
         name="DocSubTitle",
         fontName="Helvetica-Bold",
-        fontSize=11.5,
-        leading=15.5,
+        fontSize=11,
+        leading=15,
         textColor=colors.HexColor("#2B6CB0"),
-        spaceAfter=12,
+        spaceAfter=10,
     ))
     styles.add(ParagraphStyle(
         name="DocMeta",
         fontName="Helvetica",
-        fontSize=8.5,
-        leading=12.5,
+        fontSize=8,
+        leading=11.5,
         textColor=colors.HexColor("#718096"),
-        spaceAfter=15,
+        spaceAfter=12,
     ))
     styles.add(ParagraphStyle(
         name="SectionHeader",
         fontName="Helvetica-Bold",
-        fontSize=13.5,
-        leading=17.5,
+        fontSize=13,
+        leading=17,
         textColor=colors.HexColor("#1A365D"),
-        spaceBefore=14,
+        spaceBefore=12,
         spaceAfter=5,
         keepWithNext=True,
     ))
     styles.add(ParagraphStyle(
         name="SubSectionHeader",
         fontName="Helvetica-Bold",
-        fontSize=10.5,
-        leading=14.5,
+        fontSize=10,
+        leading=14,
         textColor=colors.HexColor("#2B6CB0"),
-        spaceBefore=9,
-        spaceAfter=4,
+        spaceBefore=8,
+        spaceAfter=3,
         keepWithNext=True,
     ))
     styles.add(ParagraphStyle(
         name="BodyCustom",
         fontName="Helvetica",
-        fontSize=9,
-        leading=13,
+        fontSize=8.5,
+        leading=12.2,
         textColor=colors.HexColor("#2D3748"),
         spaceAfter=5,
     ))
     styles.add(ParagraphStyle(
         name="BulletCustom",
         fontName="Helvetica",
-        fontSize=8.5,
-        leading=12.5,
+        fontSize=8.2,
+        leading=11.8,
         textColor=colors.HexColor("#2D3748"),
-        leftIndent=14,
-        spaceAfter=3,
+        leftIndent=12,
+        spaceAfter=2.5,
     ))
     styles.add(ParagraphStyle(
         name="CodeBlock",
         fontName="Courier",
-        fontSize=7.8,
-        leading=10.5,
+        fontSize=7.5,
+        leading=10,
         textColor=colors.HexColor("#1A202C"),
         backColor=colors.HexColor("#EDF2F7"),
-        leftIndent=10,
-        rightIndent=10,
+        leftIndent=8,
+        rightIndent=8,
         spaceBefore=3,
         spaceAfter=5,
     ))
     styles.add(ParagraphStyle(
         name="TableHeader",
         fontName="Helvetica-Bold",
-        fontSize=8,
-        leading=10.5,
+        fontSize=7.8,
+        leading=10,
         textColor=colors.white,
         alignment=0,
     ))
     styles.add(ParagraphStyle(
         name="TableCell",
         fontName="Helvetica",
-        fontSize=7.8,
-        leading=10,
+        fontSize=7.5,
+        leading=9.8,
         textColor=colors.HexColor("#2D3748"),
     ))
     styles.add(ParagraphStyle(
         name="TableCellBold",
         fontName="Helvetica-Bold",
-        fontSize=7.8,
-        leading=10,
+        fontSize=7.5,
+        leading=9.8,
         textColor=colors.HexColor("#1A202C"),
     ))
     styles.add(ParagraphStyle(
         name="CalloutTitle",
         fontName="Helvetica-Bold",
-        fontSize=9,
-        leading=11.5,
+        fontSize=8.8,
+        leading=11,
         textColor=colors.HexColor("#1A365D"),
         spaceAfter=2,
     ))
     styles.add(ParagraphStyle(
         name="CalloutText",
         fontName="Helvetica",
-        fontSize=8,
-        leading=11,
+        fontSize=7.8,
+        leading=10.5,
         textColor=colors.HexColor("#2D3748"),
     ))
 
@@ -219,25 +219,26 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     # COVER / HEADER
     # ==========================================
     story.append(Paragraph("SecureFlex-MAVLink Implementation & Deployment Guide", styles["DocTitle"]))
-    story.append(Paragraph("Authenticated Lightweight Cryptographic Protection for Unmanned Aerial Systems (NIST SP 800-232 Ascon-AEAD128)", styles["DocSubTitle"]))
+    story.append(Paragraph("Full-Duplex Authenticated Encryption for Unmanned Systems (NIST SP 800-232 Ascon-AEAD128)", styles["DocSubTitle"]))
     story.append(Paragraph(
         "<b>Target Platforms:</b> Windows 11 Laptop (Ground Control Station) &nbsp;|&nbsp; Raspberry Pi 5 (Companion Computer / Gateway)<br/>"
-        "<b>Baseline Link:</b> Wi-Fi / UDP Port 14550 &nbsp;|&nbsp; "
+        "<b>Baseline Telemetry:</b> UDP/Wi-Fi Port 14550 &nbsp;|&nbsp; "
         "<b>Cryptographic Standard:</b> NIST SP 800-232 Ascon-AEAD128 (IV: 0x00001000808c0001)<br/>"
-        "<b>Architectural Foundation:</b> SecureFlex Fault Detection, Isolation, and Recovery (FDIR) State Machine",
+        "<b>Bidirectional Routing:</b> Symmetric Port Binding + Auto-Detect Return Target &nbsp;|&nbsp; "
+        "<b>Fault Model:</b> SecureFlex FDIR FSM",
         styles["DocMeta"]
     ))
-    story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#1A365D"), spaceAfter=10))
+    story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#1A365D"), spaceAfter=8))
 
     # ==========================================
-    # 1. EXECUTIVE SUMMARY & SECURITY INVARIANT
+    # 1. EXECUTIVE SUMMARY & BIDIRECTIONAL ARCHITECTURE
     # ==========================================
-    story.append(Paragraph("1. Executive Summary & Core Security Invariant", styles["SectionHeader"]))
+    story.append(Paragraph("1. Executive Summary & Full-Duplex Architecture", styles["SectionHeader"]))
     story.append(Paragraph(
         "This engineering plan establishes a zero-trust, authenticated, encrypted transport layer for MAVLink telemetry between a "
-        "Windows Ground Control Station (GCS) and a Raspberry Pi 5 unmanned companion computer. Inspired by the <b>SecureFlex-ASCON</b> "
-        "research architecture, the system provides confidentiality, origin authentication, replay defense, fault localization, "
-        "and automatic defensive recovery.",
+        "Windows Ground Control Station (GCS) and a Raspberry Pi 5 unmanned companion computer (UAV). Unlike naive simplex transmitters, "
+        "SecureFlex deploys <b>full-duplex transceivers</b> on both endpoints, enabling simultaneous bidirectional traffic: "
+        "GCS heartbeats and commands flow to the vehicle, while vehicle heartbeats, attitude, and telemetry stream back to the PC.",
         styles["BodyCustom"]
     ))
 
@@ -258,14 +259,14 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     arch_summary_data = [
         [Paragraph("Subsystem Component", styles["TableHeader"]), Paragraph("Baseline (Unprotected)", styles["TableHeader"]), Paragraph("SecureFlex Implementation", styles["TableHeader"])],
         [
-            Paragraph("Transmitter (Windows)", styles["TableCellBold"]),
-            Paragraph("Transmits unencrypted MAVLink heartbeat datagrams directly to Pi IP (10.41.237.148:14550).", styles["TableCell"]),
-            Paragraph("Serializes MAVLink frame -> generates unique 128-bit nonce -> binds canonical 39-byte AAD header -> encrypts with Ascon-AEAD128 -> UDP transmit.", styles["TableCell"]),
+            Paragraph("Windows GCS Node", styles["TableCellBold"]),
+            Paragraph("Sends raw MAVLink heartbeats via UDP socket to Pi IP (10.41.237.148:14550). Never listens for return telemetry.", styles["TableCell"]),
+            Paragraph("Full-duplex transceiver: Encrypts GCS heartbeats (Sender ID = 1), binds symmetric port 14550, and decrypts incoming UAV telemetry.", styles["TableCell"]),
         ],
         [
-            Paragraph("Receiver (Raspberry Pi 5)", styles["TableCellBold"]),
-            Paragraph("Listens on UDP 14550, parses incoming bytes immediately with pymavlink.recv_match().", styles["TableCell"]),
-            Paragraph("Validates framing -> checks 64-packet replay window -> verifies tag in constant time -> commits replay -> decodes authenticated MAVLink.", styles["TableCell"]),
+            Paragraph("Raspberry Pi 5 UAV Node", styles["TableCellBold"]),
+            Paragraph("Listens on UDP 14550 with recv_match(). Never transmits vehicle telemetry or heartbeats back to PC.", styles["TableCell"]),
+            Paragraph("Full-duplex transceiver: Decrypts GCS commands (Sender ID = 1), auto-detects PC return IP:port, and encrypts UAV telemetry (Sender ID = 2).", styles["TableCell"]),
         ],
         [
             Paragraph("Cryptographic Protection", styles["TableCellBold"]),
@@ -282,19 +283,53 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     arch_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1A365D")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 4),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
         ('LEFTPADDING', (0, 0), (-1, -1), 5),
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(arch_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 2. CRYPTOGRAPHIC SPECIFICATION: NIST SP 800-232
+    # 2. TWO-WAY NETWORKING & FIREWALL RESOLUTION
     # ==========================================
-    story.append(Paragraph("2. Cryptographic Engine: NIST SP 800-232 Ascon-AEAD128", styles["SectionHeader"]))
+    story.append(Paragraph("2. Bidirectional UDP Networking & Firewall Resolution", styles["SectionHeader"]))
+    story.append(Paragraph(
+        "A frequent pitfall in drone ground stations is one-way communication failure (PC sends to Pi, but Pi cannot send to PC). "
+        "SecureFlex solves this through three specific mechanisms:",
+        styles["BodyCustom"]
+    ))
+    story.append(Paragraph(
+        "<b>1. Symmetric UDP Socket Binding:</b> When Windows transmits without binding, the OS selects an ephemeral port (e.g. 54321). "
+        "If the Pi sends to port 14550, Windows drops the packet because no socket is bound to 14550. "
+        "SecureFlex binds Windows locally to port <code>14550</code>, matching the remote destination port.",
+        styles["BulletCustom"]
+    ))
+    story.append(Paragraph(
+        "<b>2. Dynamic Return Address Auto-Detection:</b> When the PC transmits its initial datagram, the Pi's UDP socket "
+        "inspects the sender address tuple <code>(pc_ip, pc_port)</code>. The Pi automatically binds its telemetry stream "
+        "to this exact target, ensuring seamless operation across DHCP IP changes.",
+        styles["BulletCustom"]
+    ))
+    story.append(Paragraph(
+        "<b>3. Windows Defender Firewall Inbound Allow Rule:</b> By default, Windows Defender blocks unsolicited inbound UDP packets. "
+        "A one-time PowerShell rule must be executed on Windows to permit inbound UDP on port 14550:<br/>"
+        "<code>New-NetFirewallRule -DisplayName 'MAVLink UDP 14550' -Direction Inbound -Protocol UDP -LocalPort 14550 -Action Allow</code>",
+        styles["BulletCustom"]
+    ))
+    story.append(Paragraph(
+        "<b>4. Network Connectivity Doctor Tool:</b> Run <code>python tools/network_doctor.py --remote-ip &lt;PI_IP&gt;</code> to verify "
+        "ping reachability, socket availability, and firewall status before launching flight operations.",
+        styles["BulletCustom"]
+    ))
+    story.append(Spacer(1, 8))
+
+    # ==========================================
+    # 3. CRYPTOGRAPHIC SPECIFICATION: NIST SP 800-232
+    # ==========================================
+    story.append(Paragraph("3. Cryptographic Foundation: NIST SP 800-232 Ascon-AEAD128", styles["SectionHeader"]))
     story.append(Paragraph(
         "SecureFlex adheres strictly to the <b>NIST SP 800-232 standard</b> for lightweight cryptography. Older, pre-standardized "
         "Ascon v1.2 implementations must not be used because NIST finalized standard initialization constants and parameter encodings.",
@@ -344,19 +379,19 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     ascon_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#2B6CB0")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
         ('LEFTPADDING', (0, 0), (-1, -1), 5),
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(ascon_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 3. BINARY PACKET FRAMING SPECIFICATION
+    # 4. BINARY PACKET FRAMING SPECIFICATION
     # ==========================================
-    story.append(Paragraph("3. Secure Binary Packet Framing & AAD Binding", styles["SectionHeader"]))
+    story.append(Paragraph("4. Secure Binary Packet Framing & AAD Binding", styles["SectionHeader"]))
     story.append(Paragraph(
         "SecureFlex encapsulates MAVLink frames inside a canonical binary datagram. The complete 39-byte header is authenticated "
         "as Associated Data (AAD), sealing sequence numbers, session identifiers, and payload lengths against tampering:",
@@ -380,32 +415,35 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     packet_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1A365D")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 2.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2.5),
         ('LEFTPADDING', (0, 0), (-1, -1), 5),
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(packet_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 4. ANTI-REPLAY & NONCE MANAGEMENT
+    # 5. ANTI-REPLAY & NONCE MANAGEMENT
     # ==========================================
-    story.append(Paragraph("4. Anti-Replay Protection & Nonce Uniqueness Guarantee", styles["SectionHeader"]))
+    story.append(Paragraph("5. Anti-Replay Protection & Direction Domain Separation", styles["SectionHeader"]))
     story.append(Paragraph(
+        "<b>Direction Domain Separation:</b> GCS packets transmit with <code>Sender ID = 1</code>, while UAV packets transmit with "
+        "<code>Sender ID = 2</code>. The receiver strictly asserts the expected sender ID, preventing an adversary from reflecting "
+        "GCS commands back to the GCS or UAV telemetry back to the UAV.<br/>"
         "<b>Deterministic Nonce Construction:</b> <code>Nonce = SessionID (64-bit CSPRNG) || PacketCounter (64-bit monotonic)</code>. "
-        "Even across transmitter restarts, a new 64-bit random session token guarantees non-overlapping nonce spaces. "
-        "<b>Sliding Window Replay Protection:</b> RFC 6479 64-packet bitmap tracks the highest valid counter <i>M</i>. "
-        "Duplicate sequence numbers and packets older than 64 frames are dropped immediately before decryption.",
+        "Each node maintains independent 64-bit session spaces, guaranteeing zero nonce reuse even across reboots.<br/>"
+        "<b>Sliding Anti-Replay Window:</b> Both endpoints maintain RFC 6479-style 64-packet bitmap windows tracking the highest "
+        "committed counter <i>M</i>. Duplicate sequence numbers and packets older than 64 frames are dropped immediately before decryption.",
         styles["BodyCustom"]
     ))
     story.append(Spacer(1, 8))
 
     # ==========================================
-    # 5. FAULT LOCALIZATION & FDIR ARCHITECTURE
+    # 6. FAULT LOCALIZATION & FDIR ARCHITECTURE
     # ==========================================
-    story.append(Paragraph("5. Fault Localization & Diagnostic Engine", styles["SectionHeader"]))
+    story.append(Paragraph("6. Fault Localization & Diagnostic Engine", styles["SectionHeader"]))
     story.append(Paragraph(
         "SecureFlex traps anomalies at seven sequential verification stages, isolating packet corruption from active attacks:",
         styles["BodyCustom"]
@@ -460,19 +498,19 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     fault_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1A365D")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 2.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2.5),
         ('LEFTPADDING', (0, 0), (-1, -1), 5),
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(fault_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 6. RECOVERY STATE MACHINE (FSM)
+    # 7. RECOVERY STATE MACHINE (FSM)
     # ==========================================
-    story.append(Paragraph("6. Recovery Finite State Machine (FSM) & Defensive Lockdown", styles["SectionHeader"]))
+    story.append(Paragraph("7. Recovery Finite State Machine (FSM) & Defensive Lockdown", styles["SectionHeader"]))
     story.append(Paragraph(
         "An 8-state FSM manages packet forwarding gates, session recovery, and emergency lockdown protection:",
         styles["BodyCustom"]
@@ -493,19 +531,19 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     fsm_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#2B6CB0")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('TOPPADDING', (0, 0), (-1, -1), 2.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 2.5),
         ('LEFTPADDING', (0, 0), (-1, -1), 5),
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(fsm_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 7. PARITY MODELING & EMPIRICAL CHARTS
+    # 8. PARITY MODELING & EMPIRICAL CHARTS
     # ==========================================
-    story.append(Paragraph("7. SecureFlex Parity Modeling & Fault Detection Evaluation", styles["SectionHeader"]))
+    story.append(Paragraph("8. SecureFlex Parity Modeling & Fault Detection Evaluation", styles["SectionHeader"]))
     story.append(Paragraph(
         "The software model simulates the Ascon-p 320-bit permutation with integrated 5-bit S-box parity predictors "
         "and 3-way rotation linear invariants. The fault campaign verified 100% detection of single-bit glitches:",
@@ -515,13 +553,13 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     # Embed Fault Detection Summary Image if available
     fault_img_path = os.path.join(RESULTS_DIR, "fault_detection_summary.png")
     if os.path.isfile(fault_img_path):
-        story.append(Image(fault_img_path, width=460, height=195))
+        story.append(Image(fault_img_path, width=460, height=190))
         story.append(Spacer(1, 6))
 
     # ==========================================
-    # 8. THREE-WAY PERFORMANCE BENCHMARKING
+    # 9. THREE-WAY PERFORMANCE BENCHMARKING
     # ==========================================
-    story.append(Paragraph("8. Three-Way Performance Benchmark & Comparison", styles["SectionHeader"]))
+    story.append(Paragraph("9. Three-Way Performance Benchmark & Comparison", styles["SectionHeader"]))
     story.append(Paragraph(
         "A rigorous empirical benchmark across 1,000 trials evaluated: (1) Plain MAVLink baseline, (2) ASCON-AEAD128 pure cipher, "
         "and (3) Full SecureFlex protected pipeline (Crypto + Framing + Anti-Replay + Fault Localizer + FDIR FSM):",
@@ -531,7 +569,7 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     # Embed Performance Comparison Image if available
     perf_img_path = os.path.join(RESULTS_DIR, "performance_comparison.png")
     if os.path.isfile(perf_img_path):
-        story.append(Image(perf_img_path, width=480, height=200))
+        story.append(Image(perf_img_path, width=480, height=195))
         story.append(Spacer(1, 6))
 
     bench_table_data = [
@@ -577,19 +615,19 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     b_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1A365D")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
         ('LEFTPADDING', (0, 0), (-1, -1), 5),
         ('RIGHTPADDING', (0, 0), (-1, -1), 5),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(b_table)
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 10))
 
     # ==========================================
-    # 9. COMPLETE STEP-BY-STEP IMPLEMENTATION PROCEDURE
+    # 10. COMPLETE STEP-BY-STEP IMPLEMENTATION PROCEDURE
     # ==========================================
-    story.append(Paragraph("9. Complete Step-by-Step Implementation Procedure (Phases 0 to 8)", styles["SectionHeader"]))
+    story.append(Paragraph("10. Complete Step-by-Step Implementation Procedure (Phases 0 to 8)", styles["SectionHeader"]))
     story.append(Paragraph(
         "This section documents the exact technical steps required to build, configure, verify, and operate the system "
         "across development and operational deployment:",
@@ -601,11 +639,12 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     story.append(Paragraph(
         "<b>Objective:</b> Preserve unmodified working scripts and record baseline operational parameters.<br/>"
         "<b>Action Steps:</b><br/>"
-        "1. Archived original transmitter into <code>baseline/baseline_transmitter.py</code>.<br/>"
-        "2. Archived original receiver into <code>baseline/baseline_receiver.py</code>.<br/>"
-        "3. Recorded operational parameters: Destination IP = <code>10.41.237.148</code>, UDP Port = <code>14550</code>, "
-        "MAVLink System ID = <code>255</code>, Component ID = <code>190</code>, Heartbeat Rate = <code>1.0 Hz</code>.<br/>"
-        "<b>Pass Criteria:</b> Unmodified receiver decodes heartbeats from baseline transmitter over Wi-Fi.",
+        "1. Archived original simplex transmitter into <code>baseline/baseline_transmitter.py</code>.<br/>"
+        "2. Archived original simplex receiver into <code>baseline/baseline_receiver.py</code>.<br/>"
+        "3. Implemented full-duplex baseline reference scripts in <code>baseline/baseline_two_way_pc.py</code> and <code>baseline/baseline_two_way_pi.py</code>.<br/>"
+        "4. Recorded operational parameters: Destination IP = <code>10.41.237.148</code>, UDP Port = <code>14550</code>, "
+        "GCS System ID = <code>255</code>, GCS Component ID = <code>190</code>, UAV System ID = <code>1</code>, UAV Component ID = <code>1</code>, Heartbeat Rate = <code>1.0 Hz</code>.<br/>"
+        "<b>Pass Criteria:</b> Both endpoints exchange heartbeats over Wi-Fi/UDP without errors.",
         styles["BodyCustom"]
     ))
 
@@ -630,7 +669,7 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
         styles["CodeBlock"]
     ))
     story.append(Paragraph(
-        "<i>(setup_pi.sh creates Python venv, installs requirements, sets up UFW firewall for UDP 14550, and installs systemd service)</i>.<br/>"
+        "<i>(setup_pi.sh creates Python venv, installs requirements, sets up UFW firewall for UDP 14550, and enables systemd service)</i>.<br/>"
         "<b>Pass Criteria:</b> <code>python --version</code> &ge; 3.11 and <code>pip list</code> confirms pymavlink and pytest installed.",
         styles["BodyCustom"]
     ))
@@ -644,7 +683,7 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
         "2. Transfer key securely to Pi 5 via SCP: <code>scp config/secret.key pi@10.41.237.148:~/SecureFlex-MAVLink/config/secret.key</code><br/>"
         "3. Enforce strict permissions on Pi: <code>chmod 600 config/secret.key</code><br/>"
         "4. Validate against NIST Known-Answer Test vectors: <code>pytest tests/test_ascon_vectors.py</code><br/>"
-        "<b>Pass Criteria:</b> All 36 NIST KAT vectors pass. Key file is never committed to Git or sent over network.",
+        "<b>Pass Criteria:</b> All 36 NIST KAT vectors pass. Key file is never committed to Git or sent over unencrypted network.",
         styles["BodyCustom"]
     ))
 
@@ -652,12 +691,14 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     story.append(Paragraph("Phase 3: Secure Packet Transport Implementation", styles["SubSectionHeader"]))
     story.append(Paragraph(
         "<b>Objective:</b> Replace raw UDP datagrams with versioned binary packets protected by Ascon-AEAD128.<br/>"
-        "<b>Transmitter Workflow:</b> Encode MAVLink heartbeat -> Allocate monotonic counter & 16B nonce -> "
-        "Pack 39B canonical header -> Authenticate header as AAD -> Encrypt payload -> Send UDP datagram.<br/>"
-        "<b>Receiver Workflow:</b> Ingest UDP datagram -> Validate length (55 to 1494B) -> Check magic 'SF' & version 1 -> "
+        "<b>GCS Transmitter Workflow:</b> Encode MAVLink heartbeat -> Allocate monotonic counter & 16B nonce -> "
+        "Pack 39B canonical header (Sender ID = 1) -> Authenticate header as AAD -> Encrypt payload -> Send UDP datagram.<br/>"
+        "<b>UAV Receiver Workflow:</b> Ingest UDP datagram -> Validate length (55 to 1494B) -> Check magic 'SF' & version 1 -> "
         "Pre-check replay window -> Authenticate tag & decrypt in constant time -> Commit replay counter -> "
         "Pass authenticated bytes to pymavlink.<br/>"
-        "<b>Pass Criteria:</b> Pi receiver decodes heartbeat only when tag is 100% valid; corrupt packets rejected.",
+        "<b>UAV Return Telemetry Workflow:</b> Automatically record GCS client address -> Encode vehicle heartbeat + attitude -> "
+        "Encrypt with Ascon-AEAD128 (Sender ID = 2) -> Transmit back to GCS.<br/>"
+        "<b>Pass Criteria:</b> Both endpoints decode valid heartbeats only when tag is 100% valid; corrupt packets rejected.",
         styles["BodyCustom"]
     ))
 
@@ -697,8 +738,10 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     story.append(Paragraph("Phase 7: Performance Evaluation & Profiling", styles["SubSectionHeader"]))
     story.append(Paragraph(
         "<b>Objective:</b> Empirically measure encryption latency, verification latency, throughput, and wire overhead.<br/>"
-        "<b>Execution Command:</b> <code>python experiments/run_performance.py</code><br/>"
-        "<b>Pass Criteria:</b> Average cryptographic overhead &le; 1.5 ms per frame; processing rate &ge; 500 msg/sec.",
+        "<b>Execution Commands:</b><br/>"
+        "<code>python experiments/run_performance.py</code> (profiles cryptographic microsecond latencies)<br/>"
+        "<code>python experiments/benchmark_comparison.py</code> (generates 3-way comparative reports and plots)<br/>"
+        "<b>Pass Criteria:</b> Average cryptographic overhead &le; 1.8 ms per frame; processing rate &ge; 500 msg/sec.",
         styles["BodyCustom"]
     ))
 
@@ -706,107 +749,115 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
     story.append(Paragraph("Phase 8: End-to-End Acceptance Tests & Daemon Deployment", styles["SubSectionHeader"]))
     story.append(Paragraph(
         "<b>Objective:</b> Verify complete system acceptance and enable background systemd service on Raspberry Pi.<br/>"
-        "<b>Execution Command:</b> <code>pytest tests</code> (runs all 54 tests across all suites).<br/>"
+        "<b>Execution Command:</b> <code>pytest tests</code> (runs all 56 tests across all test suites).<br/>"
         "<b>Daemon Enable Commands (Pi):</b><br/>"
         "sudo systemctl enable --now secureflex-receiver.service<br/>"
         "sudo systemctl status secureflex-receiver.service<br/>"
         "<b>Pass Criteria:</b> 100% of tests pass; receiver daemon starts automatically on boot and recovers safely.",
         styles["BodyCustom"]
     ))
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 10. OPERATOR RUNBOOK & VERIFICATION CHECKLIST
+    # 11. OPERATOR LIVE EXECUTION RUNBOOK
     # ==========================================
-    story.append(Paragraph("10. Operator Runbook: Step-by-Step Live Execution", styles["SectionHeader"]))
+    story.append(PageBreak())
+    story.append(Paragraph("11. Operator Runbook: Step-by-Step Live Execution", styles["SectionHeader"]))
     story.append(Paragraph(
         "Follow this operational procedure during live testing between the Windows laptop and Raspberry Pi 5:",
         styles["BodyCustom"]
     ))
 
     runbook_data = [
-        [Paragraph("Step", styles["TableHeader"]), Paragraph("Operation", styles["TableHeader"]), Paragraph("System / Console", styles["TableHeader"]), Paragraph("Exact Shell Command", styles["TableHeader"]), Paragraph("Verification Check", styles["TableHeader"])],
+        [Paragraph("Step", styles["TableHeader"]), Paragraph("Operation", styles["TableHeader"]), Paragraph("System / Node", styles["TableHeader"]), Paragraph("Exact Shell Command", styles["TableHeader"]), Paragraph("Verification Check", styles["TableHeader"])],
         [
             Paragraph("1", styles["TableCellBold"]),
+            Paragraph("Network Check", styles["TableCellBold"]),
+            Paragraph("Windows Laptop", styles["TableCell"]),
+            Paragraph("<code>python tools/network_doctor.py --remote-ip 10.41.237.148</code>", styles["TableCell"]),
+            Paragraph("Verifies ping, socket availability, & Wi-Fi subnet.", styles["TableCell"]),
+        ],
+        [
+            Paragraph("2", styles["TableCellBold"]),
+            Paragraph("Firewall Rule", styles["TableCellBold"]),
+            Paragraph("Windows (Admin)", styles["TableCell"]),
+            Paragraph("<code>New-NetFirewallRule -DisplayName 'MAVLink UDP 14550' -Direction Inbound -Protocol UDP -LocalPort 14550 -Action Allow</code>", styles["TableCell"]),
+            Paragraph("Opens inbound UDP 14550 for return packets from Pi.", styles["TableCell"]),
+        ],
+        [
+            Paragraph("3", styles["TableCellBold"]),
             Paragraph("Key Gen", styles["TableCellBold"]),
             Paragraph("Windows Laptop", styles["TableCell"]),
             Paragraph("<code>python config/key_generator.py -o config/secret.key</code>", styles["TableCell"]),
             Paragraph("Generates 16-byte hex key.", styles["TableCell"]),
         ],
         [
-            Paragraph("2", styles["TableCellBold"]),
+            Paragraph("4", styles["TableCellBold"]),
             Paragraph("Key Copy", styles["TableCellBold"]),
             Paragraph("Windows Laptop", styles["TableCell"]),
             Paragraph("<code>scp config/secret.key pi@10.41.237.148:~/SecureFlex-MAVLink/config/</code>", styles["TableCell"]),
-            Paragraph("Key transferred out-of-band.", styles["TableCell"]),
-        ],
-        [
-            Paragraph("3", styles["TableCellBold"]),
-            Paragraph("Secure Perms", styles["TableCellBold"]),
-            Paragraph("Raspberry Pi 5", styles["TableCell"]),
-            Paragraph("<code>chmod 600 ~/SecureFlex-MAVLink/config/secret.key</code>", styles["TableCell"]),
-            Paragraph("Readable only by service.", styles["TableCell"]),
-        ],
-        [
-            Paragraph("4", styles["TableCellBold"]),
-            Paragraph("Start Pi Node", styles["TableCellBold"]),
-            Paragraph("Raspberry Pi 5", styles["TableCell"]),
-            Paragraph("<code>python raspberry_pi/secure_receiver.py --port 14550</code>", styles["TableCell"]),
-            Paragraph("Listens on 0.0.0.0:14550 with auto-return route.", styles["TableCell"]),
+            Paragraph("Transfers key securely out-of-band.", styles["TableCell"]),
         ],
         [
             Paragraph("5", styles["TableCellBold"]),
-            Paragraph("Firewall Rule", styles["TableCellBold"]),
-            Paragraph("Windows (Admin)", styles["TableCell"]),
-            Paragraph("<code>New-NetFirewallRule -DisplayName 'MAVLink UDP' -Direction Inbound -Protocol UDP -LocalPort 14550 -Action Allow</code>", styles["TableCell"]),
-            Paragraph("Permits return UDP packets from Pi.", styles["TableCell"]),
+            Paragraph("Secure Perms", styles["TableCellBold"]),
+            Paragraph("Raspberry Pi 5", styles["TableCell"]),
+            Paragraph("<code>chmod 600 ~/SecureFlex-MAVLink/config/secret.key</code>", styles["TableCell"]),
+            Paragraph("Restricts key access to owner only.", styles["TableCell"]),
         ],
         [
             Paragraph("6", styles["TableCellBold"]),
-            Paragraph("Start PC Node", styles["TableCellBold"]),
-            Paragraph("Windows Laptop", styles["TableCell"]),
-            Paragraph("<code>python windows/secure_transmitter.py --target-ip 10.41.237.148</code>", styles["TableCell"]),
-            Paragraph("Sends GCS heartbeats and listens on port 14550.", styles["TableCell"]),
+            Paragraph("Start Pi Node", styles["TableCellBold"]),
+            Paragraph("Raspberry Pi 5", styles["TableCell"]),
+            Paragraph("<code>python raspberry_pi/secure_transceiver.py --key-file config/secret.key</code>", styles["TableCell"]),
+            Paragraph("Prints 'Listening on 0.0.0.0:14550' with auto return route.", styles["TableCell"]),
         ],
         [
             Paragraph("7", styles["TableCellBold"]),
-            Paragraph("Verify Two-Way", styles["TableCellBold"]),
+            Paragraph("Start PC Node", styles["TableCellBold"]),
+            Paragraph("Windows Laptop", styles["TableCell"]),
+            Paragraph("<code>python windows/secure_transceiver.py --target-ip 10.41.237.148</code>", styles["TableCell"]),
+            Paragraph("Transmits GCS heartbeats and binds local port 14550.", styles["TableCell"]),
+        ],
+        [
+            Paragraph("8", styles["TableCellBold"]),
+            Paragraph("Verify Link", styles["TableCellBold"]),
             Paragraph("Both Systems", styles["TableCell"]),
             Paragraph("<i>Observe both consoles</i>", styles["TableCell"]),
             Paragraph("Pi decodes GCS heartbeat; PC decodes UAV telemetry & attitude.", styles["TableCell"]),
         ],
         [
-            Paragraph("8", styles["TableCellBold"]),
+            Paragraph("9", styles["TableCellBold"]),
             Paragraph("Tamper Test", styles["TableCellBold"]),
             Paragraph("Windows Laptop", styles["TableCell"]),
-            Paragraph("<code>python windows/secure_transmitter.py --test-corrupt-ct</code>", styles["TableCell"]),
-            Paragraph("Pi rejects at Stage 6; tag failure.", styles["TableCell"]),
+            Paragraph("<code>python windows/secure_transceiver.py --target-ip 10.41.237.148 --test-corrupt-ct</code>", styles["TableCell"]),
+            Paragraph("Pi rejects at Stage 6 (AUTHENTICATION_FAILED); pymavlink isolated.", styles["TableCell"]),
         ],
         [
-            Paragraph("9", styles["TableCellBold"]),
+            Paragraph("10", styles["TableCellBold"]),
             Paragraph("Replay Test", styles["TableCellBold"]),
             Paragraph("Windows Laptop", styles["TableCell"]),
             Paragraph("<code>python experiments/fault_injector.py --fault replay</code>", styles["TableCell"]),
-            Paragraph("Pi rejects at Stage 5; REPLAY_ATTACK.", styles["TableCell"]),
+            Paragraph("Pi rejects at Stage 5 (REPLAY_ATTACK).", styles["TableCell"]),
         ],
     ]
-    runbook_table = Table(runbook_data, colWidths=[24, 60, 80, 200, 140])
+    runbook_table = Table(runbook_data, colWidths=[20, 60, 75, 205, 144])
     runbook_table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#1A365D")),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#CBD5E0")),
-        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
-        ('LEFTPADDING', (0, 0), (-1, -1), 5),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 5),
+        ('TOPPADDING', (0, 0), (-1, -1), 3),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+        ('LEFTPADDING', (0, 0), (-1, -1), 4),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 4),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor("#F7FAFC")]),
     ]))
     story.append(runbook_table)
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 8))
 
     # ==========================================
-    # 11. FPGA MIGRATION ROADMAP
+    # 12. FPGA MIGRATION ROADMAP
     # ==========================================
-    story.append(Paragraph("11. Future FPGA Acceleration & Hardware Migration Pathway", styles["SectionHeader"]))
+    story.append(Paragraph("12. Future FPGA Acceleration & Hardware Migration Pathway", styles["SectionHeader"]))
     story.append(Paragraph(
         "With the software prototype validated on Windows and Raspberry Pi 5, the project prepares for hardware acceleration "
         "on an FPGA coprocessor (e.g., AMD Xilinx Zynq-7000 or UltraScale+):<br/>"
@@ -819,14 +870,14 @@ def build_pdf(filename=PDF_OUTPUT_PATH):
         "and clock glitch testing to rigorously evaluate physical hardware resilience against hostile electronic warfare.",
         styles["BodyCustom"]
     ))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
     # Concluding Callout
     callout_conclusion = create_callout_box(
         "PROJECT ACCEPTANCE & COMPLETION CONFIRMATION",
-        "The SecureFlex-MAVLink software prototype meets all requirements specified in the Implementation Guide. "
-        "All 54 test cases pass, official NIST SP 800-232 known-answer vectors verify with 100% precision, "
-        "S-box parity models achieve 100% fault detection, and the live socket loopback verifies robust operation.",
+        "The SecureFlex-MAVLink full-duplex software prototype meets all requirements specified in the Implementation Guide. "
+        "All 56 test cases pass, official NIST SP 800-232 known-answer vectors verify with 100% precision, "
+        "S-box parity models achieve 100% fault detection, and live socket loopbacks confirm robust bidirectional telemetry.",
         styles,
         bg_hex="#F0FFF4",
         border_hex="#38A169"
